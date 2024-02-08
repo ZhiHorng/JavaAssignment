@@ -1,0 +1,31 @@
+ProductID,ProductName,Category,Type,Price,Description,StockQuantity
+1,EKTORP,Sofa,Living Room Furniture,500,Comfortable sofa with reclining features,10
+2,LISABO,Dining Table,Dining Room Furniture,300,Sturdy wooden dining table with seating for six,15
+3,HOLMSUND,Bed,Bedroom Furniture,700,Queen-sized bed frame with upholstered headboard,8
+4,BILLY,Bookshelf,Home Office Furniture,150,Tall bookshelf with adjustable shelves,20
+5,LACK,TV Stand,Living Room Furniture,200,Modern TV stand with storage compartments,12
+6,POÄNG,Armchair,Living Room Furniture,250,Classic armchair with plush cushions,10
+7,MICKE,Desk,Home Office Furniture,180,Compact desk with built-in drawers,18
+8,HAVSTA,Coffee Table,Living Room Furniture,150,Rectangular coffee table with glass top,15
+9,MALM,Computer Desk,Home Office Furniture,200,Spacious computer desk with keyboard tray,10
+10,PLATSA,Wardrobe,Bedroom Furniture,600,Large wardrobe with sliding doors,8
+11,KIVIK,Sofa,Living Room Furniture,600,Luxurious sofa with chaise longue,10
+12,INGATORP,Dining Table,Dining Room Furniture,250,Extendable dining table for small spaces,15
+13,SÖDERHAMN,Sofa,Living Room Furniture,700,Contemporary modular sofa with customizable layout,8
+14,HEMNES,Bed,Bedroom Furniture,400,Sturdy bed frame with storage drawers,12
+15,BRIMNES,Bookshelf,Home Office Furniture,120,Compact bookcase with doors,25
+16,BESTÅ,TV Stand,Living Room Furniture,180,Modern TV bench with storage drawers,20
+17,PÖANG,Armchair,Living Room Furniture,150,Iconic armchair with bentwood frame,10
+18,LÅNGFJÄLL,Desk Chair,Home Office Furniture,100,Ergonomic office chair with adjustable height,15
+19,KLIMPEN,Desk,Home Office Furniture,80,Straightforward desk with storage compartments,18
+20,ELVARLI,Shelving Unit,Storage Furniture,300,Adjustable open wardrobe system,10
+21,GRÖNLID,Sofa,Living Room Furniture,800,Sectional sofa with soft, deep seats,8
+22,NORDVIKEN,Dining Table,Dining Room Furniture,350,Extendable dining table with rounded corners,12
+23,VALLENTUNA,Sofa,Living Room Furniture,900,Modular sofa with storage and sleep function,6
+24,MALM,Bed,Bedroom Furniture,350,Low bed frame with storage boxes,15
+25,BRUSALI,Bookshelf,Home Office Furniture,100,Simple bookcase with adjustable shelves,20
+26,BRIMNES,TV Stand,Living Room Furniture,150,TV bench with drawers and door,15
+27,FÄRLÖV,Sofa,Living Room Furniture,750,Traditional sofa with removable covers,10
+28,MARKUS,Desk Chair,Home Office Furniture,120,High-back swivel chair with lumbar support,18
+29,FJÄLLBERGET,Desk Chair,Home Office Furniture,150,Swivel chair with adjustable height and tilt,15
+30,BRUSALI,Wardrobe,Bedroom Furniture,250,Wardrobe with 3 doors,8

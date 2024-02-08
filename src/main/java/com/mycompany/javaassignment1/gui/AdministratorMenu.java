@@ -4,8 +4,12 @@
  */
 package com.mycompany.javaassignment1.gui;
 import com.mycompany.javaassignment1.Session;
-import com.mycompany.javaassignment1.User;
 import com.mycompany.javaassignment1.Administrator;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author godch
@@ -17,11 +21,58 @@ public class AdministratorMenu extends javax.swing.JFrame {
      */
     public AdministratorMenu() {
         initComponents();
-        
+        populateApprovedSalesTable();
+        populateWorkSummaryTable();        
     }
+    
     public void setWelcomeMessage(String name) {
         jLabel1.setText("Welcome: " + name);
     }
+    
+    private void populateApprovedSalesTable() {
+        // Read sales data from the "sales.txt" file
+        DefaultTableModel model = (DefaultTableModel) approveSaleSummary.getModel();
+        model.setRowCount(0); // Clear existing data
+
+        // Set column headers
+        model.setColumnIdentifiers(new String[]{"SaleID", "ProductID", "ProductName", "Category", "Type","Price", "Quantity", "State", "Date"});
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("sales.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields[7].trim().equalsIgnoreCase("Approved")) {
+                    Object[] row = {fields[0], fields[1], fields[2], fields[3], fields[4], fields[5], fields[6], fields[7], fields[8]};
+                    model.addRow(row);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error reading sales data.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void populateWorkSummaryTable() {
+        // Read work done data from the "work_done.txt" file
+        DefaultTableModel model = (DefaultTableModel) workSummary.getModel();
+        model.setRowCount(0); // Clear existing data
+
+        // Set column headers
+        model.setColumnIdentifiers(new String[]{"SaleID", "ProductID", "ProductName", "Category", "Type", "Price", "Quantity", "State", "Date"});
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("work_done.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                Object[] row = {fields[0], fields[1], fields[2], fields[3], fields[4], fields[5], fields[6], fields[7],  fields[8]};
+                model.addRow(row);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error reading work done data.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,13 +87,15 @@ public class AdministratorMenu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
         logout = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        approveSaleSummary = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        workSummary = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         reportMenu = new javax.swing.JMenu();
+        salesMenu = new javax.swing.JMenu();
+        workMenu = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         workerProfile = new javax.swing.JMenu();
 
@@ -55,14 +108,6 @@ public class AdministratorMenu extends javax.swing.JFrame {
 
         jLabel5.setText("Work Summary");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
-
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane4.setViewportView(jTextArea2);
-
         logout.setText("Logout");
         logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,7 +115,51 @@ public class AdministratorMenu extends javax.swing.JFrame {
             }
         });
 
+        approveSaleSummary.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(approveSaleSummary);
+
+        workSummary.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(workSummary);
+
         reportMenu.setText("Report");
+
+        salesMenu.setText("Sales Report");
+        salesMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesMenuMouseClicked(evt);
+            }
+        });
+        reportMenu.add(salesMenu);
+
+        workMenu.setText("Work Done Report");
+        workMenu.setActionCommand("Work Done Report");
+        workMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                workMenuMouseClicked(evt);
+            }
+        });
+        reportMenu.add(workMenu);
+
         jMenuBar1.add(reportMenu);
 
         jMenu3.setText("Self Profile");
@@ -106,12 +195,12 @@ public class AdministratorMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(logout)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 27, Short.MAX_VALUE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel5)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addComponent(jScrollPane2)))
+                        .addGap(0, 19, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,15 +211,15 @@ public class AdministratorMenu extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(14, 14, 14)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(logout)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -164,6 +253,16 @@ public class AdministratorMenu extends javax.swing.JFrame {
         WorkerProfile workerprofile = new WorkerProfile();
         workerprofile.setVisible(true);
     }//GEN-LAST:event_workerProfileMouseClicked
+
+    private void workMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workMenuMouseClicked
+        WorkDoneReport workDoneReport = new WorkDoneReport();
+        workDoneReport.setVisible(true);
+    }//GEN-LAST:event_workMenuMouseClicked
+
+    private void salesMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesMenuMouseClicked
+        SalesReport salesreport = new SalesReport();
+        salesreport.setVisible(true);
+    }//GEN-LAST:event_salesMenuMouseClicked
 
     
     /**
@@ -203,18 +302,20 @@ public class AdministratorMenu extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable approveSaleSummary;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton logout;
     private javax.swing.JMenu reportMenu;
+    private javax.swing.JMenu salesMenu;
+    private javax.swing.JMenu workMenu;
+    private javax.swing.JTable workSummary;
     private javax.swing.JMenu workerProfile;
     // End of variables declaration//GEN-END:variables
 }

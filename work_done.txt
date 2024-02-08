@@ -1,0 +1,5 @@
+SaleID,ProductID,ProductName,Category,Type,Price,Quantity,State,Date
+3,3,HOLMSUND,Bed,Bedroom Furniture,700,1,Work Done,2024-02-12
+7,7,MICKE,Desk,Home Office Furniture,180,2,Work Done,2024-02-16
+13,13,SÖDERHAMN,Sofa,Living Room Furniture,700,1,Work Done,2024-02-22
+18,18,LÅNGFJÄLL,Desk Chair,Home Office Furniture,100,1,In Progress,2024-02-27

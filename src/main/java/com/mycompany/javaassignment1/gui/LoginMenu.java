@@ -141,6 +141,11 @@ public class LoginMenu extends javax.swing.JFrame {
 
     // Get user object
     User user = userDetails.get(username);
+    
+    if (user.getStatus().equalsIgnoreCase("Inactive")) {
+        JOptionPane.showMessageDialog(this, "Your account is inactive. Please contact the administrator.", "Account Inactive", JOptionPane.ERROR_MESSAGE);
+        return;
+    }    
 
     // Check login credentials
     if (user.login(username, password)) {
