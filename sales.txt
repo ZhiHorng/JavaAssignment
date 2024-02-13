@@ -1,4 +1,4 @@
-SaleID,ProductID,ProductName,Category,Price,Quantity,State,Date
+SaleID,ProductID,ProductName,Category,Type,Price,Quantity,State,Date
 1,1,EKTORP,Sofa,Living Room Furniture,500,2,Unapproved,2024-02-10
 2,2,LISABO,Dining Table,Dining Room Furniture,300,1,Approved,2024-02-11
 3,3,HOLMSUND,Bed,Bedroom Furniture,700,1,Closed,2024-02-12

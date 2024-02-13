@@ -26,7 +26,8 @@ public class Product {
         this.quantity = quantity;
     }
 
-    // Getters and setters
+    // Getters and setters (including setStockQuantity)
+    // Note: I've added the missing getters and setters as well
     public int getProductID() {
         return productID;
     }
@@ -72,6 +73,11 @@ public class Product {
     }
 
     public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+    
+    // Method to set the stock quantity
+    public void setStockQuantity(int quantity) {
         this.quantity = quantity;
     }
 

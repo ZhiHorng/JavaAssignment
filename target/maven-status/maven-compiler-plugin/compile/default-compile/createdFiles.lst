@@ -7,10 +7,9 @@ com\mycompany\javaassignment1\User.class
 com\mycompany\javaassignment1\gui\WorkDoneReport$2.class
 com\mycompany\javaassignment1\gui\AdministratorMenu$2.class
 com\mycompany\javaassignment1\gui\SelfProfile$2.class
-com\mycompany\javaassignment1\gui\LoginMenu$3.class
 com\mycompany\javaassignment1\gui\WorkerProfile$1.class
+com\mycompany\javaassignment1\SaleOrderQuotation.class
 com\mycompany\javaassignment1\gui\SelfProfile$3.class
-com\mycompany\javaassignment1\gui\LoginMenu$2.class
 com\mycompany\javaassignment1\gui\OfficerMenu.class
 com\mycompany\javaassignment1\gui\WorkDoneReport$4.class
 com\mycompany\javaassignment1\gui\OfficerMenu$1.class
@@ -30,12 +29,12 @@ com\mycompany\javaassignment1\ManageProfile.class
 com\mycompany\javaassignment1\gui\SalesReport$3.class
 com\mycompany\javaassignment1\gui\WorkDoneReport$3.class
 com\mycompany\javaassignment1\Officer.class
+com\mycompany\javaassignment1\SaleOrderQuotation$Product.class
 com\mycompany\javaassignment1\gui\AdministratorMenu$3.class
 com\mycompany\javaassignment1\gui\SelfProfile$4.class
 com\mycompany\javaassignment1\Session.class
 com\mycompany\javaassignment1\gui\SalesReport.class
 com\mycompany\javaassignment1\gui\WorkerProfile$2.class
-com\mycompany\javaassignment1\JavaAssignment1$1.class
 com\mycompany\javaassignment1\gui\SelfProfile.class
 com\mycompany\javaassignment1\gui\SalespersonMenu$1.class
 com\mycompany\javaassignment1\gui\SalesReport$1.class
