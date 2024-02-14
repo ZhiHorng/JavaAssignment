@@ -161,6 +161,7 @@ public class LoginMenu extends javax.swing.JFrame {
                 break;
             case "Salesperson":
                 SalespersonMenu salesMenu = new SalespersonMenu();
+                salesMenu.setWelcomeMessage(username);
                 salesMenu.setVisible(true);
                 break;
             default:

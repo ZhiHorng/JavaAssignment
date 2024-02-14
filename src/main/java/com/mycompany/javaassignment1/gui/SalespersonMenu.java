@@ -4,6 +4,19 @@
  */
 package com.mycompany.javaassignment1.gui;
 
+import com.mycompany.javaassignment1.Session;
+import com.mycompany.javaassignment1.Salesperson;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author godch
@@ -15,6 +28,36 @@ public class SalespersonMenu extends javax.swing.JFrame {
      */
     public SalespersonMenu() {
         initComponents();
+        setSaleInfoTable();
+    }
+
+    public void setWelcomeMessage(String name) {
+        jLabel4.setText("Welcome: " + name);
+    }
+    
+    private void setSaleInfoTable(){
+        Session session = Session.getInstance();
+        String salesPersonName = session.getUsername();
+        // Read sales data from the "sales.txt" file
+        DefaultTableModel model = (DefaultTableModel) saleInfoTable.getModel();
+        model.setRowCount(0); // Clear existing data
+
+        // Set column headers
+        model.setColumnIdentifiers(new String[]{"SaleID", "ProductID", "ProductName", "Category", "Type","Price", "Quantity", "State", "Date","SalesPersonName", "CustomerName"});
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("sales.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields[9].trim().equalsIgnoreCase(salesPersonName)) {
+                    Object[] row = {fields[0], fields[1], fields[2], fields[3], fields[4], fields[5], fields[6], fields[7], fields[8], fields[9], fields[10]};
+                    model.addRow(row);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error reading sales data.", "Error", JOptionPane.ERROR_MESSAGE);
+        }       
     }
 
     /**
@@ -26,21 +69,246 @@ public class SalespersonMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jScrollBar1 = new javax.swing.JScrollBar();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        saleInfoTable = new javax.swing.JTable();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
+        searchButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        customerField = new javax.swing.JTextField();
+        productNameField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        exitButton = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        createSaleOrder = new javax.swing.JMenu();
+        modifySaleOrder = new javax.swing.JMenu();
+        deleteSaleOrder = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        personalinformationMenu = new javax.swing.JMenu();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        saleInfoTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        saleInfoTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        saleInfoTable.setFillsViewportHeight(true);
+        jScrollPane1.setViewportView(saleInfoTable);
+
+        searchButton.setText("Filter");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Customer Name:");
+
+        jLabel2.setText("Product Name:");
+
+        jLabel3.setText("Date:");
+
+        jLabel4.setText("Welcome:");
+
+        exitButton.setText("Logout");
+
+        jMenu1.setText("Sales Order");
+
+        createSaleOrder.setText("Create Sale Order");
+        createSaleOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                createSaleOrderMouseClicked(evt);
+            }
+        });
+        jMenu1.add(createSaleOrder);
+
+        modifySaleOrder.setText("Modify Sale Order");
+        modifySaleOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modifySaleOrderMouseClicked(evt);
+            }
+        });
+        jMenu1.add(modifySaleOrder);
+
+        deleteSaleOrder.setText("Delete Sale Order");
+        deleteSaleOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteSaleOrderMouseClicked(evt);
+            }
+        });
+        jMenu1.add(deleteSaleOrder);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu6.setText("Manage Customer");
+        jMenuBar1.add(jMenu6);
+
+        personalinformationMenu.setText("Personal Information");
+        personalinformationMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                personalinformationMenuMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(personalinformationMenu);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 816, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(exitButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(searchButton)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel1)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(customerField, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(productNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(379, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 589, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel4)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(customerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(productNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(searchButton))
+                    .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(exitButton)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        // Get the search criteria from the text fields
+        String productName = productNameField.getText();
+        String customerName = customerField.getText();
+
+        // Get the selected date from the calendar
+        Calendar selectedCalendar = jCalendar1.getCalendar();
+        Date selectedDate = null;
+        if (selectedCalendar != null) {
+            selectedDate = selectedCalendar.getTime();
+        }
+
+        // Format the date as needed (e.g., to match the format in the files)
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = dateFormat.format(selectedDate);
+
+        // Read data from file and filter based on search criteria
+        List<String[]> filteredData = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("sales.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                String product = parts[2].trim();
+                String customer = parts[10].trim();
+                String dateStr = parts[8].trim();
+                if ((productName.isEmpty() || product.equalsIgnoreCase(productName))
+                        && (customerName.isEmpty() || customer.equalsIgnoreCase(customerName))
+                        && dateStr.equals(formattedDate)) {
+                    filteredData.add(parts);
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error reading file: " + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Check if any matching records are found
+        if (filteredData.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No matching records found.", "No Records", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        // Convert filtered data to Object[][] for table model
+        Object[][] data = new Object[filteredData.size()][];
+        for (int i = 0; i < filteredData.size(); i++) {
+            data[i] = filteredData.get(i);
+        }
+
+        // Define column names for the table
+        String[] columnNames = {"SaleID", "ProductID", "ProductName", "Category", "Type", "Price", "Quantity", "State", "Date", "Salesperson", "Customer Name"};
+
+        // Create a DefaultTableModel with the data and column names
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+
+        // Set the model to the table
+        saleInfoTable.setModel(model);
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void createSaleOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createSaleOrderMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_createSaleOrderMouseClicked
+
+    private void modifySaleOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifySaleOrderMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modifySaleOrderMouseClicked
+
+    private void deleteSaleOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteSaleOrderMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteSaleOrderMouseClicked
+
+    private void personalinformationMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_personalinformationMenuMouseClicked
+        Session session = Session.getInstance();
+        String userID = session.getUserID();
+        String userName = session.getUsername();
+        String password = session.getPassword();
+        String role = session.getRole();
+        String status = session.getStatus();
+        int age = session.getAge();
+        String email = session.getEmail();
+        String phoneNumber = session.getPhoneNumber();
+        
+        Salesperson currentUser = new Salesperson(userID, userName, password, role, status, age, email, phoneNumber);
+        SelfProfile selfProfileWindow = new SelfProfile(currentUser);
+        selfProfileWindow.setVisible(true);   
+    }//GEN-LAST:event_personalinformationMenuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -78,5 +346,24 @@ public class SalespersonMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu createSaleOrder;
+    private javax.swing.JTextField customerField;
+    private javax.swing.JMenu deleteSaleOrder;
+    private javax.swing.JButton exitButton;
+    private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollBar jScrollBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu modifySaleOrder;
+    private javax.swing.JMenu personalinformationMenu;
+    private javax.swing.JTextField productNameField;
+    private javax.swing.JTable saleInfoTable;
+    private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 }

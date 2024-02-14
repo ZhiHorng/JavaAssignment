@@ -20,7 +20,7 @@ public class Session {
     private String phoneNumber;
 
     // Private constructor to prevent instantiation from outside
-    private Session() {}
+    public Session() {}
 
     // Get the singleton instance of Session
     public static Session getInstance() {

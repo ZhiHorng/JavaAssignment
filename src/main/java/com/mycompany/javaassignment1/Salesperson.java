@@ -9,7 +9,7 @@ package com.mycompany.javaassignment1;
  * @author godch
  */
 // Salesperson class extending User
-class Salesperson extends User {
+public class Salesperson extends User {
     public Salesperson(String userID, String username, String userPassword, String role, String status, int age, String email, String phoneNumber) {
         super(userID, username, userPassword, role, status, age, email, phoneNumber);
     }
