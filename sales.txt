@@ -9,3 +9,9 @@ SaleID,ProductID,ProductName,Category,Type,Price,Quantity,State,Date,Salesperson
 8,8,HAVSTA,Coffee Table,Living Room Furniture,150,1,Approved,2024-02-17,Emily Chen,Lee	
 9,9,MALM,Computer Desk,Home Office Furniture,200,1,Unapproved,2024-02-18,Emily Chen,Rex
 10,10,PLATSA,Wardrobe,Bedroom Furniture,600,1,Approved,2024-02-19,Joe Biden,Lee
+11,1,EKTORP,Sofa,Living Room Furniture,500,1,Unapproved,2024-02-15,Emily Chen,John Doe
+12,1,EKTORP,Sofa,Living Room Furniture,500,1,Unapproved,2024-02-15,Emily Chen,Jane Smith
+13,1,EKTORP,Sofa,Living Room Furniture,500,1,Unapproved,2024-02-15,Emily Chen,Jane Smith
+13,4,BILLY,Bookshelf,Home Office Furniture,150,2,Unapproved,2024-02-15,Emily Chen,Jane Smith
+14,4,BILLY,Bookshelf,Home Office Furniture,150,1,Unapproved,2024-02-15,Emily Chen,Arthur Black
+14,5,LACK,TV Stand,Living Room Furniture,200,1,Unapproved,2024-02-15,Emily Chen,Arthur Black

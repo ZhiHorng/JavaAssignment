@@ -87,6 +87,7 @@ public class SalespersonMenu extends javax.swing.JFrame {
         modifySaleOrder = new javax.swing.JMenu();
         deleteSaleOrder = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
+        addCustomer = new javax.swing.JMenu();
         personalinformationMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -117,11 +118,22 @@ public class SalespersonMenu extends javax.swing.JFrame {
 
         jLabel2.setText("Product Name:");
 
+        customerField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customerFieldActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Date:");
 
         jLabel4.setText("Welcome:");
 
         exitButton.setText("Logout");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Sales Order");
 
@@ -152,6 +164,15 @@ public class SalespersonMenu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu6.setText("Manage Customer");
+
+        addCustomer.setText("Add Customer");
+        addCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addCustomerMouseClicked(evt);
+            }
+        });
+        jMenu6.add(addCustomer);
+
         jMenuBar1.add(jMenu6);
 
         personalinformationMenu.setText("Personal Information");
@@ -283,7 +304,8 @@ public class SalespersonMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void createSaleOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createSaleOrderMouseClicked
-        // TODO add your handling code here:
+        CreateSaleOrder createSaleOrder = new CreateSaleOrder();
+        createSaleOrder.setVisible(true);
     }//GEN-LAST:event_createSaleOrderMouseClicked
 
     private void modifySaleOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifySaleOrderMouseClicked
@@ -309,6 +331,23 @@ public class SalespersonMenu extends javax.swing.JFrame {
         SelfProfile selfProfileWindow = new SelfProfile(currentUser);
         selfProfileWindow.setVisible(true);   
     }//GEN-LAST:event_personalinformationMenuMouseClicked
+
+    private void addCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCustomerMouseClicked
+        CreateCustomer createCustomer = new CreateCustomer();
+        createCustomer.setVisible(true);
+    }//GEN-LAST:event_addCustomerMouseClicked
+
+    private void customerFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_customerFieldActionPerformed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        Session session = Session.getInstance();
+        session.clearSession();
+        this.dispose();
+        LoginMenu loginMenu = new LoginMenu();
+        loginMenu.setVisible(true);
+    }//GEN-LAST:event_exitButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,6 +385,7 @@ public class SalespersonMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu addCustomer;
     private javax.swing.JMenu createSaleOrder;
     private javax.swing.JTextField customerField;
     private javax.swing.JMenu deleteSaleOrder;

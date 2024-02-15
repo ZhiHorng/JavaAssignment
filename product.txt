@@ -1,9 +1,9 @@
 ProductID,ProductName,Category,Type,Price,Description,StockQuantity
-1,EKTORP,Sofa,Living Room Furniture,500,Comfortable sofa with reclining features,10
+1,EKTORP,Sofa,Living Room Furniture,500,Comfortable sofa with reclining features,7
 2,LISABO,Dining Table,Dining Room Furniture,300,Sturdy wooden dining table with seating for six,15
-3,HOLMSUND,Bed,Bedroom Furniture,700,Queen-sized bed frame with upholstered headboard,8
-4,BILLY,Bookshelf,Home Office Furniture,150,Tall bookshelf with adjustable shelves,20
-5,LACK,TV Stand,Living Room Furniture,200,Modern TV stand with storage compartments,12
+3,HOLMSUND,Bed,Bedroom Furniture,700,Queen-sized bed frame with upholstered headboard,7
+4,BILLY,Bookshelf,Home Office Furniture,150,Tall bookshelf with adjustable shelves,17
+5,LACK,TV Stand,Living Room Furniture,200,Modern TV stand with storage compartments,11
 6,POÄNG,Armchair,Living Room Furniture,250,Classic armchair with plush cushions,10
 7,MICKE,Desk,Home Office Furniture,180,Compact desk with built-in drawers,18
 8,HAVSTA,Coffee Table,Living Room Furniture,150,Rectangular coffee table with glass top,15

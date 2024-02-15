@@ -1,0 +1,8 @@
+ID,Name,Age,Birthday,PhoneNumber,Email
+1,John Doe,30,1994-05-15,123-456-7890,johndoe@example.com
+2,Jane Smith,25,1999-10-20,987-654-3210,janesmith@example.com
+3,Michael Johnson,40,1984-02-28,555-123-4567,michael@example.com
+4,Emily Davis,35,1989-07-12,888-999-0000,emily@example.com
+5,David Wilson,28,1996-11-30,777-888-9999,david@example.com
+715,Jonathan Low,41,1983-02-02,018655632,johnathanlow@gmail.com
+880,Arthur Black,22,2001-06-17,0148895665,arthurBlack@gmail.com
