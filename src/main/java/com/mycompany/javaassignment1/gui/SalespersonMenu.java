@@ -85,7 +85,6 @@ public class SalespersonMenu extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         createSaleOrder = new javax.swing.JMenu();
         modifySaleOrder = new javax.swing.JMenu();
-        deleteSaleOrder = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         addCustomer = new javax.swing.JMenu();
         personalinformationMenu = new javax.swing.JMenu();
@@ -152,14 +151,6 @@ public class SalespersonMenu extends javax.swing.JFrame {
             }
         });
         jMenu1.add(modifySaleOrder);
-
-        deleteSaleOrder.setText("Delete Sale Order");
-        deleteSaleOrder.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteSaleOrderMouseClicked(evt);
-            }
-        });
-        jMenu1.add(deleteSaleOrder);
 
         jMenuBar1.add(jMenu1);
 
@@ -309,12 +300,9 @@ public class SalespersonMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_createSaleOrderMouseClicked
 
     private void modifySaleOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifySaleOrderMouseClicked
-        // TODO add your handling code here:
+        DeleteModifySaleOrder deleteModifySaleOrder = new DeleteModifySaleOrder();
+        deleteModifySaleOrder.setVisible(true);
     }//GEN-LAST:event_modifySaleOrderMouseClicked
-
-    private void deleteSaleOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteSaleOrderMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteSaleOrderMouseClicked
 
     private void personalinformationMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_personalinformationMenuMouseClicked
         Session session = Session.getInstance();
@@ -388,7 +376,6 @@ public class SalespersonMenu extends javax.swing.JFrame {
     private javax.swing.JMenu addCustomer;
     private javax.swing.JMenu createSaleOrder;
     private javax.swing.JTextField customerField;
-    private javax.swing.JMenu deleteSaleOrder;
     private javax.swing.JButton exitButton;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;

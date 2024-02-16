@@ -1,15 +1,15 @@
 ProductID,ProductName,Category,Type,Price,Description,StockQuantity
-1,EKTORP,Sofa,Living Room Furniture,500,Comfortable sofa with reclining features,7
-2,LISABO,Dining Table,Dining Room Furniture,300,Sturdy wooden dining table with seating for six,15
-3,HOLMSUND,Bed,Bedroom Furniture,700,Queen-sized bed frame with upholstered headboard,7
-4,BILLY,Bookshelf,Home Office Furniture,150,Tall bookshelf with adjustable shelves,17
+1,EKTORP,Sofa,Living Room Furniture,500,Comfortable sofa with reclining features,6
+2,LISABO,Dining Table,Dining Room Furniture,300,Sturdy wooden dining table with seating for six,1
+3,HOLMSUND,Bed,Bedroom Furniture,700,Queen-sized bed frame with upholstered headboard,2
+4,BILLY,Bookshelf,Home Office Furniture,150,Tall bookshelf with adjustable shelves,16
 5,LACK,TV Stand,Living Room Furniture,200,Modern TV stand with storage compartments,11
 6,POÄNG,Armchair,Living Room Furniture,250,Classic armchair with plush cushions,10
 7,MICKE,Desk,Home Office Furniture,180,Compact desk with built-in drawers,18
 8,HAVSTA,Coffee Table,Living Room Furniture,150,Rectangular coffee table with glass top,15
-9,MALM,Computer Desk,Home Office Furniture,200,Spacious computer desk with keyboard tray,10
+9,MALM,Computer Desk,Home Office Furniture,200,Spacious computer desk with keyboard tray,11
 10,PLATSA,Wardrobe,Bedroom Furniture,600,Large wardrobe with sliding doors,8
-11,KIVIK,Sofa,Living Room Furniture,600,Luxurious sofa with chaise longue,10
+11,KIVIK,Sofa,Living Room Furniture,600,Luxurious sofa with chaise longue,42
 12,INGATORP,Dining Table,Dining Room Furniture,250,Extendable dining table for small spaces,15
 13,SÖDERHAMN,Sofa,Living Room Furniture,700,Contemporary modular sofa with customizable layout,8
 14,HEMNES,Bed,Bedroom Furniture,400,Sturdy bed frame with storage drawers,12

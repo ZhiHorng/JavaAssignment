@@ -27,14 +27,6 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="modifySaleOrderMouseClicked"/>
               </Events>
             </Menu>
-            <Menu class="javax.swing.JMenu" name="deleteSaleOrder">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Delete Sale Order"/>
-              </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="deleteSaleOrderMouseClicked"/>
-              </Events>
-            </Menu>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu6">
