@@ -1,4 +1,4 @@
-package javaapplication1;
+package com.mycompany.javaassignment1;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,16 +18,47 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.swing.SwingUtilities;
 
-public class JavaApplication1 {
+public class SalesProcess {
+        
+       
+
 
     private static DefaultTableModel tableModel;
     private static TableRowSorter<DefaultTableModel> sorter;
+    private static void filterAndCopyUnapprovedRows(String inputFile, String outputFile) throws IOException {
+    try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+         BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile, true))) { // Append flag set to true
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (line.contains("Unapproved")) {
+                line = line.replace("Unapproved", "In Progress");
+                writer.write(line);
+                writer.newLine();
+            }
+            
+        }
+    }
+    }
+    
+    
 
     public static void main(String[] args) {
+        
+ 
+        
+    
         // Create and configure the frame
         JFrame frame = new JFrame("Furniture Sale Ordering Management System");
         frame.setSize(600, 400);
@@ -53,7 +84,7 @@ public class JavaApplication1 {
         // Create table model with columns
         tableModel = new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"CustomerID", "Furniture", "Type", "Price", "Approval"}
+                new String[]{"SaleID", "ProductID", "ProductName", "Category", "Type", "Price", "Quantity", "State", "Date"}
         );
 
         // Create JTable with the table model
@@ -72,11 +103,30 @@ public class JavaApplication1 {
         // Create approve button
         JButton approveButton = new JButton("Approve Sale");
         approvePanel.add(approveButton);
+        
+         approveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                String inputFile = "sales.txt";
+                String outputFile = "work_done.txt";
+                try {
+                    filterAndCopyUnapprovedRows(inputFile, outputFile);
+                    System.out.println("Filtered rows copied to " + outputFile);
+                } catch (IOException ex) {
+                    System.err.println("Error: " + ex.getMessage());
+                }
+            }
+        });
+         
 
         // Create close button
         JButton closeButton = new JButton("Close Sale");
         approvePanel.add(closeButton);
-
+        
+        JPanel workdonePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton workdoneButton = new JButton("Work Done");
+        approvePanel.add(workdoneButton);
         // Create save panel
         JPanel savePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
@@ -87,7 +137,8 @@ public class JavaApplication1 {
         // Create a panel to hold the approvePanel and savePanel
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(approvePanel, BorderLayout.WEST);
-        bottomPanel.add(savePanel, BorderLayout.CENTER);
+        bottomPanel.add(savePanel, BorderLayout.EAST);
+  
 
         panel.add(bottomPanel, BorderLayout.SOUTH);
 
@@ -117,6 +168,20 @@ public class JavaApplication1 {
                 saveDataToFile();
             }
         });
+        
+        workdoneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) {
+            tableModel.setValueAt("Work Done", selectedRow, tableModel.getColumnCount() - 2);
+            saveDataToFile();
+        } else {
+            JOptionPane.showMessageDialog(frame, "Please select a row to mark as 'Work Done'.", "No Row Selected", JOptionPane.WARNING_MESSAGE);
+        }
+            }
+        
+        });
 
         // Event handler for close button
         closeButton.addActionListener(new ActionListener() {
@@ -128,17 +193,32 @@ public class JavaApplication1 {
                 }
             }
         });
+        
+        
+        
 
         // Event handler for approve button
         approveButton.addActionListener(new ActionListener() {
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     tableModel.setValueAt("Approved", selectedRow, tableModel.getColumnCount() - 1);
-                }
+                     saveDataToFile(); // Save the changes to the file
+                      
+                  
+                }              
+                SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    reloadData();
+            }
+        });   
             }
         });
+    
+
 
         // Mouse listener to handle adding new row when clicking on empty row
         table.addMouseListener(new MouseAdapter() {
@@ -165,8 +245,9 @@ public class JavaApplication1 {
     }
 
     private static void saveDataToFile() {
-        String filePath = "C:/Users/ME/Desktop/sale_orders.txt";
+        String filePath = "work_done.txt";
         try {
+            
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             for (int row = 0; row < tableModel.getRowCount(); row++) {
                 for (int col = 0; col < tableModel.getColumnCount(); col++) {
@@ -189,19 +270,22 @@ public class JavaApplication1 {
     }
 
     private static void loadData() {
-        String filePath = "C:/Users/ME/Desktop/sale_orders.txt";
-        try {
-            java.util.Scanner fileScanner = new java.util.Scanner(new java.io.File(filePath));
-            while (fileScanner.hasNext()) {
-                String[] rowData = fileScanner.nextLine().split(",");
-                tableModel.addRow(rowData);
-            }
-            fileScanner.close();
-            System.out.println("Data loaded from " + filePath + " successfully.");
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
+    String filePath = "work_done.txt";
+    try {
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] rowData = line.split(",");
+            tableModel.addRow(rowData);
         }
+        reader.close();
+        System.out.println("Data loaded from " + filePath + " successfully.");
+    } catch (IOException e) {
+        System.err.println("Error loading data from " + filePath + ": " + e.getMessage());
+        e.printStackTrace();
     }
+}
+
 
     static class NumberCellEditor extends DefaultCellEditor {
         public NumberCellEditor() {
@@ -218,5 +302,53 @@ public class JavaApplication1 {
                 return false;
             }
         }
+        
+    }
+
+    
+
+    private static void replaceTextInFile(String filePath, String targetText, String replacementText) {
+        try {
+            // Read content from the file
+            Path path = Paths.get(filePath);
+            Charset charset = StandardCharsets.UTF_8;
+            String content = new String(Files.readAllBytes(path), charset);
+
+            // Replace the target text with the replacement text
+            content = content.replaceAll(targetText, replacementText);
+
+            // Write the modified content back to the file
+            Files.write(path, content.getBytes(charset));
+            System.out.println("Text replaced successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private static void reloadData() {
+    replaceTextInFile("sales.txt", "Unapproved", "Approved");
+    String filePath = "work_done.txt";
+    try {
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        
+        // Clear existing data from the table model
+        tableModel.setRowCount(0);
+        
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] rowData = line.split(",");
+            tableModel.addRow(rowData);
+        }
+        reader.close();
+        System.out.println("Data loaded from " + filePath + " successfully.");
+    } catch (IOException e) {
+        System.err.println("Error loading data from " + filePath + ": " + e.getMessage());
+        e.printStackTrace();
     }
 }
+}
+
+
+
+ 
+ 

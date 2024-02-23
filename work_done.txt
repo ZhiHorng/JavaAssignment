@@ -1,5 +1,6 @@
-SaleID,ProductID,ProductName,Category,Type,Price,Quantity,State,Date
 3,3,HOLMSUND,Bed,Bedroom Furniture,700,1,Work Done,2024-02-12
 7,7,MICKE,Desk,Home Office Furniture,180,2,Work Done,2024-02-16
 13,13,SÖDERHAMN,Sofa,Living Room Furniture,700,1,Work Done,2024-02-22
-18,18,LÅNGFJÄLL,Desk Chair,Home Office Furniture,100,1,In Progress,2024-02-27
+5,5,LACK,TV Stand,Living Room Furniture,200,2,In Progress,2024-02-14
+6,6,POÄNG,Armchair,Living Room Furniture,250,1,In Progress,2024-02-15
+11,1,EKTORP,Sofa,Living Room Furniture,500.0,6,In Progress,2024-02-21
