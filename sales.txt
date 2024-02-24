@@ -2,9 +2,13 @@ SaleID,ProductID,ProductName,Category,Type,Price,Quantity,State,Date,Salesperson
 2,2,LISABO,Dining Table,Dining Room Furniture,300,1,Approved,2024-02-11,Emily Chen,Lee
 3,3,HOLMSUND,Bed,Bedroom Furniture,700,1,Closed,2024-02-12,Emily Chen,Lee
 4,4,BILLY,Bookshelf,Home Office Furniture,150,3,Approved,2024-02-13,John Doe,Rex
-5,5,LACK,TV Stand,Living Room Furniture,200,2,Unapproved,2024-02-14,John Rex,Lee
-6,6,POÄNG,Armchair,Living Room Furniture,250,1,Unapproved,2024-02-15,John Doe,Rex
+5,5,LACK,TV Stand,Living Room Furniture,200,2,Approved,2024-02-14,John Rex,Lee
+6,6,POÄNG,Armchair,Living Room Furniture,250,1,Approved,2024-02-15,John Doe,Rex
 7,7,MICKE,Desk,Home Office Furniture,180,2,Closed,2024-02-16,Emily Chen,Rex
 8,8,HAVSTA,Coffee Table,Living Room Furniture,150,1,Approved,2024-02-17,Emily Chen,Lee	
 10,10,PLATSA,Wardrobe,Bedroom Furniture,600,1,Approved,2024-02-19,Joe Biden,Lee
-11,1,EKTORP,Sofa,Living Room Furniture,500.0,6,Unapproved,2024-02-21,Emily Chen,David Wilson
+<<<<<<< HEAD
+11,1,EKTORP,Sofa,Living Room Furniture,500.0,6,Approved,2024-02-21,Emily Chen,David Wilson
+=======
+11,1,EKTORP,Sofa,Living Room Furniture,500.0,6,Approved,2024-02-21,Emily Chen,David Wilson
+>>>>>>> 11cd38dcbf6be1824ae1901b6c7607ec7c7b99cd

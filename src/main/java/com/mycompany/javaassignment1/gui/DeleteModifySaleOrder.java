@@ -11,32 +11,58 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+
 
 /**
  *
  * @author godch
  */
 public class DeleteModifySaleOrder extends javax.swing.JFrame {
-
+    private JComboBox<String> customerComboBox;
+    private JComboBox<String> productComboBox;
     /**
      * Creates new form DeleteModifySaleOrder
      */
     public DeleteModifySaleOrder() {
         initComponents();
         setSaleInfoTable();
+        loadCustomerNames();
+        loadProductNames();
+        replaceTextFieldsWithComboBoxes();
     }
-    
+    public class CustomTableModel extends DefaultTableModel {
+
+        private final boolean[] editableColumns; // Array to store editable status of each column
+
+        // Constructor to initialize the model with column names and data
+        public CustomTableModel(Object[][] data, Object[] columnNames, boolean[] editableColumns) {
+            super(data, columnNames);
+            this.editableColumns = editableColumns;
+        }
+
+        // Override isCellEditable to specify which cells are editable
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return editableColumns[column]; // Return true if the cell is editable, false otherwise
+        }
+    }    
     private void setSaleInfoTable(){
         Session session = Session.getInstance();
         String salesPersonName = session.getUsername();
         // Read sales data from the "sales.txt" file
-        DefaultTableModel model = (DefaultTableModel) saleInfoTable.getModel();
-        model.setRowCount(0); // Clear existing data
 
-        // Set column headers
-        model.setColumnIdentifiers(new String[]{"SaleID", "ProductID", "ProductName", "Category", "Type","Price", "Quantity", "State", "Date","SalesPersonName", "CustomerName"});
+        // Define column names and editable status for each column
+        Object[] columnNames = {"SaleID", "ProductID", "ProductName", "Category", "Type","Price", "Quantity", "State", "Date","SalesPersonName", "CustomerName"};
+        boolean[] editableColumns = {false, false, true, false, false, false, true, false, true, false, true}; // Specify which columns are editable
+
+        // Use custom table model with editable status for each column
+        CustomTableModel model = new CustomTableModel(new Object[][]{}, columnNames, editableColumns);
+        saleInfoTable.setModel(model);
 
         try (BufferedReader reader = new BufferedReader(new FileReader("sales.txt"))) {
             String line;
@@ -100,7 +126,42 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
             // Handle the IOException appropriately (e.g., show error message)
         }
     }
-    
+
+    // Method to load customer names from file
+    private void loadCustomerNames() {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("customer.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                model.addElement(fields[1]); // Assuming customer name is at index 1
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        customerComboBox = new JComboBox<>(model);
+    }
+
+    // Method to load product names from file
+    private void loadProductNames() {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("product.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                model.addElement(fields[1]); // Assuming product name is at index 1
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        productComboBox = new JComboBox<>(model);
+    }
+
+    // Method to replace text fields with combo boxes in the table
+    private void replaceTextFieldsWithComboBoxes() {
+        saleInfoTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(productComboBox)); // Assuming ProductName column is at index 2
+        saleInfoTable.getColumnModel().getColumn(10).setCellEditor(new DefaultCellEditor(customerComboBox)); // Assuming CustomerName column is at index 10
+    }    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -112,9 +173,9 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         saleInfoTable = new javax.swing.JTable();
-        modifyButton = new javax.swing.JButton();
         Delete = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        modify = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -137,13 +198,6 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
         saleInfoTable.getAccessibleContext().setAccessibleDescription("");
         saleInfoTable.getAccessibleContext().setAccessibleParent(jScrollPane1);
 
-        modifyButton.setText("Modify");
-        modifyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modifyButtonActionPerformed(evt);
-            }
-        });
-
         Delete.setText("Delete");
         Delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +206,13 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Modify Or Delete Sale Order");
+
+        modify.setText("Modify");
+        modify.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modifyMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,7 +223,7 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(modifyButton)
+                        .addComponent(modify)
                         .addGap(18, 18, 18)
                         .addComponent(Delete))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -177,8 +238,8 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(modifyButton)
-                    .addComponent(Delete))
+                    .addComponent(Delete)
+                    .addComponent(modify))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -212,9 +273,72 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DeleteActionPerformed
 
-    private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_modifyButtonActionPerformed
+    private void modifyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyMouseClicked
+        int selectedRow = saleInfoTable.getSelectedRow();
+        if (selectedRow != -1) {
+            // Retrieve data from the selected row
+            String saleID = saleInfoTable.getValueAt(selectedRow, 0).toString();
+            String productID = saleInfoTable.getValueAt(selectedRow, 1).toString();
+            String productName = saleInfoTable.getValueAt(selectedRow, 2).toString();
+            String category = saleInfoTable.getValueAt(selectedRow, 3).toString();
+            String type = saleInfoTable.getValueAt(selectedRow, 4).toString();
+            double unitPrice = Double.parseDouble(saleInfoTable.getValueAt(selectedRow, 5).toString());
+            int previousQuantity = Integer.parseInt(saleInfoTable.getValueAt(selectedRow, 6).toString());
+            String state = saleInfoTable.getValueAt(selectedRow, 7).toString();
+            String date = saleInfoTable.getValueAt(selectedRow, 8).toString();
+            String salesPersonName = saleInfoTable.getValueAt(selectedRow, 9).toString();
+            String customerName = saleInfoTable.getValueAt(selectedRow, 10).toString();
+            System.out.println("Selected Sale ID: " + saleID);
+            System.out.println("Selected Product ID: " + productID);
+            System.out.println("Selected Product Name: " + productName);            
+
+            // Prompt the user for the new quantity
+            String newQuantityStr = JOptionPane.showInputDialog(this, "Enter new quantity:", "Modify Quantity", JOptionPane.QUESTION_MESSAGE);
+            if (newQuantityStr == null) {
+                // User canceled the operation
+                return;
+            }
+
+            try {
+                int newQuantity = Integer.parseInt(newQuantityStr);
+
+                // Calculate the quantity difference
+                int quantityDifference = newQuantity - previousQuantity;
+
+                // Update data files
+                try {
+                    // Read all lines from the sales.txt file into a list
+                    List<String> lines = Files.readAllLines(Paths.get("sales.txt"));
+
+                    // Find and update the line with the matching sale ID
+                    for (int i = 0; i < lines.size(); i++) {
+                        String line = lines.get(i);
+                        String[] fields = line.split(",");
+                        if (fields.length > 0 && fields[0].trim().equals(saleID) && fields[1].trim().equals(productID)) {
+                            // Update the line with the modified data
+                            String updatedLine = String.join(",", saleID, productID, productName, category, type, String.valueOf(unitPrice), String.valueOf(newQuantity), state, date, salesPersonName, customerName);
+                            lines.set(i, updatedLine);
+                            break; // Stop searching once the sale ID is found and updated
+                        }
+                    }
+
+                    Files.write(Paths.get("sales.txt"), lines);
+
+                    // Update stock quantity in product.txt
+                    updateStockQuantity(productID, quantityDifference);
+
+                    JOptionPane.showMessageDialog(this, "Sales Order Modified!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Error updating data.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Invalid quantity format.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_modifyMouseClicked
 
     
     /**
@@ -256,7 +380,7 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
     private javax.swing.JButton Delete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton modifyButton;
+    private javax.swing.JButton modify;
     private javax.swing.JTable saleInfoTable;
     // End of variables declaration//GEN-END:variables
 }

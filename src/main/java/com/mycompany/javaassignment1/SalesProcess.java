@@ -12,8 +12,10 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -28,13 +30,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 
 public class SalesProcess {
         
-       
-
-
     private static DefaultTableModel tableModel;
     private static TableRowSorter<DefaultTableModel> sorter;
     private static void filterAndCopyUnapprovedRows(String inputFile, String outputFile) throws IOException {
@@ -52,13 +55,9 @@ public class SalesProcess {
     }
     }
     
-    
-
+   
     public static void main(String[] args) {
-        
- 
-        
-    
+       
         // Create and configure the frame
         JFrame frame = new JFrame("Furniture Sale Ordering Management System");
         frame.setSize(600, 400);
@@ -119,6 +118,7 @@ public class SalesProcess {
             }
         });
          
+        
 
         // Create close button
         JButton closeButton = new JButton("Close Sale");
@@ -127,6 +127,10 @@ public class SalesProcess {
         JPanel workdonePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton workdoneButton = new JButton("Work Done");
         approvePanel.add(workdoneButton);
+        
+        JPanel invoicePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton showInvoiceButton = new JButton("Show Invoice");
+        approvePanel.add(showInvoiceButton);
         // Create save panel
         JPanel savePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
@@ -158,6 +162,13 @@ public class SalesProcess {
                     // If the search term is empty, remove the filter
                     sorter.setRowFilter(null);
                 }
+            }
+        });
+
+        showInvoiceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                issueInvoice(table);
             }
         });
 
@@ -196,7 +207,7 @@ public class SalesProcess {
         
         
         
-
+      
         // Event handler for approve button
         approveButton.addActionListener(new ActionListener() {
             
@@ -218,8 +229,6 @@ public class SalesProcess {
             }
         });
     
-
-
         // Mouse listener to handle adding new row when clicking on empty row
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -345,7 +354,95 @@ public class SalesProcess {
         System.err.println("Error loading data from " + filePath + ": " + e.getMessage());
         e.printStackTrace();
     }
+   }
+    private static void issueInvoice(JTable table) {
+    int selectedRow = table.getSelectedRow();
+    if (selectedRow != -1) {
+        String SaleID = (String) table.getValueAt(selectedRow, 0); // Assuming SaleID is in the first column (index 0)
+        String ProductID = (String) table.getValueAt(selectedRow, 1); // Assuming ProductID is in the second column (index 1)
+        String ProductName = (String) table.getValueAt(selectedRow, 2); // Assuming ProductName is in the third column (index 2)
+        String Category = (String) table.getValueAt(selectedRow, 3); // Assuming Category is in the fourth column (index 3)
+        String Type = (String) table.getValueAt(selectedRow, 4); // Assuming Type is in the fifth column (index 4)
+        String Price = (String) table.getValueAt(selectedRow, 5); // Assuming Price is in the sixth column (index 5)
+        String Quantity = (String) table.getValueAt(selectedRow, 6); // Assuming Quantity is in the seventh column (index 6)
+        String Date = (String) table.getValueAt(selectedRow, 8); // Assuming Date is in the ninth column (index 8)
+        // Your further logic here
+
+
+        // Generate invoice content
+        String invoiceContent = generateInvoiceContent(SaleID, ProductID, ProductName, Category, Type, Price, Quantity, Date);
+
+        // Display invoice in a pop-up window
+        displayInvoicePopup(invoiceContent);
+    } else {
+        JOptionPane.showMessageDialog(null, "Please select a row to issue the invoice.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
+
+    private static void displayInvoicePopup(String invoiceContent) {
+        // Create a new JFrame to display the invoice
+        JFrame invoiceFrame = new JFrame("Invoice");
+        invoiceFrame.setSize(400, 300);
+        invoiceFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // Create a JPanel to hold the invoice content
+        JPanel contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+        contentPane.setLayout(new BorderLayout());
+        contentPane.setBackground(Color.WHITE); // Set background color
+
+        // Create a JLabel for the header
+        JLabel headerLabel = new JLabel("Invoice");
+        headerLabel.setFont(new Font("Arial", Font.BOLD, 20)); // Set header font
+        headerLabel.setHorizontalAlignment(JLabel.CENTER); // Center align header
+        headerLabel.setForeground(Color.BLACK); // Set header text color
+        contentPane.add(headerLabel, BorderLayout.NORTH);
+
+        // Create a JTextArea to display the invoice content
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setText(invoiceContent);
+        textArea.setFont(new Font("Arial", Font.PLAIN, 14)); // Set content font
+        textArea.setLineWrap(true); // Enable line wrapping
+        textArea.setWrapStyleWord(true); // Wrap at word boundaries
+        textArea.setBackground(Color.WHITE); // Set background color
+        textArea.setBorder(BorderFactory.createLineBorder(Color.GRAY)); // Add border
+
+        // Add the JTextArea to a JScrollPane
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        contentPane.add(scrollPane, BorderLayout.CENTER);
+
+        // Add a JPanel for the footer
+        JPanel footerPanel = new JPanel();
+        footerPanel.setBackground(Color.WHITE); // Set background color
+        footerPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.GRAY)); // Add bottom border
+
+        // Add the footer panel to the content pane
+        contentPane.add(footerPanel, BorderLayout.SOUTH);
+
+        // Add the content pane to the frame
+        invoiceFrame.setContentPane(contentPane);
+
+        // Center the frame on the screen
+        invoiceFrame.setLocationRelativeTo(null);
+
+        // Make the frame visible
+        invoiceFrame.setVisible(true);
+    }
+
+    private static String generateInvoiceContent(String SaleID, String ProductID, String ProductName, String Category, String Price, String Type, String Quantity, String Date) {
+        // Implement your invoice generation logic here
+        // For example:
+        StringBuilder invoiceContent = new StringBuilder();
+        invoiceContent.append("Sale ID: ").append(SaleID).append("\n");
+        invoiceContent.append("Product ID: ").append(ProductID).append("\n");
+        invoiceContent.append("Product Name: ").append(ProductName).append("\n");
+        invoiceContent.append("Category: ").append(Category).append("\n");
+        invoiceContent.append("Type: ").append(Type).append("\n");        
+        invoiceContent.append("Price: ").append(Price).append("\n");
+        invoiceContent.append("Date: ").append(Date).append("\n");
+        return invoiceContent.toString();
+    }
 }
 
 

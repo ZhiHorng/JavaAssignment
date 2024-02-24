@@ -1,5 +1,5 @@
 ProductID,ProductName,Category,Type,Price,Description,StockQuantity
-1,EKTORP,Sofa,Living Room Furniture,500,Comfortable sofa with reclining features,6
+1,EKTORP,Sofa,Living Room Furniture,500,Comfortable sofa with reclining features,9
 2,LISABO,Dining Table,Dining Room Furniture,300,Sturdy wooden dining table with seating for six,1
 3,HOLMSUND,Bed,Bedroom Furniture,700,Queen-sized bed frame with upholstered headboard,2
 4,BILLY,Bookshelf,Home Office Furniture,150,Tall bookshelf with adjustable shelves,16
