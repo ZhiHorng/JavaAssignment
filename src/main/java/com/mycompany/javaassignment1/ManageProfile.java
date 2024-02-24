@@ -12,24 +12,24 @@ import java.io.IOException;
 
 public class ManageProfile {
     public static void updatePassword(String userId, String newPassword) {
-        // Read the user_details.txt file
+        // read user details text file
         try (BufferedReader reader = new BufferedReader(new FileReader("user_details.txt"))) {
             String line;
             StringBuilder updatedContent = new StringBuilder();
             while ((line = reader.readLine()) != null) {
-                // Split the line into fields
+                // split lines based on comma into part
                 String[] fields = line.split(", ");
-                // Check if the user ID matches
+                // if user id match to the session id
                 if (fields.length > 0 && fields[0].equals(userId)) {
-                    // Update the password field
+                    //update password
                     fields[2] = newPassword;
-                    // Reconstruct the line with updated password
+                    // reconstruct the line with new password
                     line = String.join(", ", fields);
                 }
-                // Append the line (either updated or original) to the content
+                // append the line back to the text file
                 updatedContent.append(line).append("\n");
             }
-            // Write the updated content back to the file
+            // write updated content to the text file
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("user_details.txt"))) {
                 writer.write(updatedContent.toString());
             }
@@ -39,26 +39,26 @@ public class ManageProfile {
     }
     
     public static void editUserDetails(String userId, String[] newFields) {
-        // Read the user_details.txt file
+        // read user details text file
         try (BufferedReader reader = new BufferedReader(new FileReader("user_details.txt"))) {
             String line;
             StringBuilder updatedContent = new StringBuilder();
             while ((line = reader.readLine()) != null) {
-                // Split the line into fields
+                // split lines based on comma into part
                 String[] fields = line.split(", ");
-                // Check if the user ID matches
+                // if user id match to the session id
                 if (fields.length > 0 && fields[0].equals(userId)) {
-                    // Update all user fields
+                    // update user field
                     for (int i = 1; i < fields.length && i < newFields.length; i++) {
                         fields[i] = newFields[i];
                     }
-                    // Reconstruct the line with updated fields
+                    // reconstruct the line with updated fields
                     line = String.join(", ", fields);
                 }
-                // Append the line (either updated or original) to the content
+                // Append to the content
                 updatedContent.append(line).append("\n");
             }
-            // Write the updated content back to the file
+            // Write back to the file
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("user_details.txt"))) {
                 writer.write(updatedContent.toString());
             }

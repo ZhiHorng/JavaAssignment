@@ -206,7 +206,7 @@ public class WorkDoneReport extends javax.swing.JFrame {
             selectedDate = selectedCalendar.getTime();
         }
 
-        // Format the date as needed (e.g., to match the format in the files)
+        // Format the date as needed 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = null;
         if (selectedDate != null) {
@@ -216,7 +216,7 @@ public class WorkDoneReport extends javax.swing.JFrame {
         // Create a list to store the search criteria
         List<String> searchCriteriaList = new ArrayList<>();
 
-        // Add each non-empty search criteria to the list
+        //add non-empty search criteria to the list
         if (!saleID.isEmpty()) {
             searchCriteriaList.add(saleID);
         }
@@ -233,7 +233,7 @@ public class WorkDoneReport extends javax.swing.JFrame {
             searchCriteriaList.add(formattedDate);
         }
 
-        // Check if any criteria is provided
+        //if any criteria is provided
         if (searchCriteriaList.isEmpty()) {
             // Handle if no criteria is provided
             JOptionPane.showMessageDialog(this, "Please provide a search criteria.", "No Criteria Warning", JOptionPane.WARNING_MESSAGE);
@@ -250,10 +250,8 @@ public class WorkDoneReport extends javax.swing.JFrame {
         // Define column names for the table
         String[] columnNames = {"SaleID", "ProductID", "ProductName", "Category","Type", "Total", "Quantity", "State", "Date"};
 
-        // Create a DefaultTableModel with the data and column names
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
 
-        // Set the model to the table
         reportTable.setModel(model);
     }//GEN-LAST:event_searchButtonActionPerformed
 

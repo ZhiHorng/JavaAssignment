@@ -7,8 +7,7 @@ SaleID,ProductID,ProductName,Category,Type,Price,Quantity,State,Date,Salesperson
 7,7,MICKE,Desk,Home Office Furniture,180,2,Closed,2024-02-16,Emily Chen,Rex
 8,8,HAVSTA,Coffee Table,Living Room Furniture,150,1,Approved,2024-02-17,Emily Chen,Lee	
 10,10,PLATSA,Wardrobe,Bedroom Furniture,600,1,Approved,2024-02-19,Joe Biden,Lee
-<<<<<<< HEAD
 11,1,EKTORP,Sofa,Living Room Furniture,500.0,6,Approved,2024-02-21,Emily Chen,David Wilson
-=======
-11,1,EKTORP,Sofa,Living Room Furniture,500.0,6,Approved,2024-02-21,Emily Chen,David Wilson
->>>>>>> 11cd38dcbf6be1824ae1901b6c7607ec7c7b99cd
+12,1,EKTORP,Sofa,Living Room Furniture,500.0,4,Unapproved,2024-02-24,Emily Chen,John Doe
+13,1,EKTORP,Sofa,Living Room Furniture,500,1,Unapproved,2024-02-24,Emily Chen,Michael Johnson
+14,1,EKTORP,Sofa,Living Room Furniture,500,1,Unapproved,2024-02-24,Emily Chen,Lim Juin Han

@@ -27,34 +27,33 @@ public class Administrator extends User {
         super(userID, username, userPassword, role, status, age, email, phoneNumber);
     }
 
-    // Method to display all worker profiles in the workerProfile table
+    // method to display all worker profiles in the workerProfile table
     public void displayWorkerProfiles(JTable workerProfile) {
         DefaultTableModel model = (DefaultTableModel) workerProfile.getModel();
-        model.setRowCount(0); // Clear existing table data
+        model.setRowCount(0); 
 
-        // Set column names
+        // set column names
         model.setColumnIdentifiers(new String[]{"ID", "Name", "Password", "Role", "Status", "Age", "Email", "Phone Number"});
 
         try (BufferedReader reader = new BufferedReader(new FileReader("user_details.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(", ");
-                // Check if the fields array has at least 8 elements (from username to password)
+                // check if the fields in text file have at least 8 part
                 if (fields.length >= 8) {
-                    // Add id, name, password, role, status, age, email, and phone number fields to the table
-                    // Create a combobox for the status column with options "Active" and "Inactive"
+                    //create combo box with two option, active or inactive to allow user to select
                     JComboBox<String> statusComboBox = new JComboBox<>(new String[]{"Active", "Inactive"});
-                    statusComboBox.setSelectedItem(fields[4]); // Set the initial selected item based on the value in the file
+                    statusComboBox.setSelectedItem(fields[4]); //set the default value of the combo box based on the field in text
 
-                    // Add a cell editor for the status column
+                    //add cell editor to column
                     TableColumn statusColumn = workerProfile.getColumnModel().getColumn(4);
                     statusColumn.setCellEditor(new DefaultCellEditor(statusComboBox));
 
-                    // Create a combobox for the role column with options "Salesperson," "Administrator," and "Officer"
+                    //create combo box with two option, active or inactive to allow user to select
                     JComboBox<String> roleComboBox = new JComboBox<>(new String[]{"Salesperson", "Administrator", "Officer"});
-                    roleComboBox.setSelectedItem(fields[3]); // Set the initial selected item based on the value in the file
+                    roleComboBox.setSelectedItem(fields[3]); // //set the default value of the combo box based on the field in text
 
-                    // Add a cell editor for the role column
+                    //add cell editor to column
                     TableColumn roleColumn = workerProfile.getColumnModel().getColumn(3);
                     roleColumn.setCellEditor(new DefaultCellEditor(roleComboBox));
 
@@ -71,14 +70,13 @@ public class Administrator extends User {
         DefaultTableModel model = (DefaultTableModel) workerProfile.getModel();
 
         try {
-            // Clear the contents of the file
+            // clear the contents of the file first
             BufferedWriter clearWriter = new BufferedWriter(new FileWriter("user_details.txt", false));
             clearWriter.close();
 
-            // Write data to the file
+            // write data back to the file
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("user_details.txt", true))) {
 
-                // Write data
                 for (int row = 0; row < model.getRowCount(); row++) {
                     for (int col = 0; col < model.getColumnCount(); col++) {
                         writer.write(model.getValueAt(row, col).toString());
@@ -91,23 +89,21 @@ public class Administrator extends User {
                 }
             }
 
-            // Display success message
-            JOptionPane.showMessageDialog(null, "User profiles updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            // Refresh the table
+            JOptionPane.showMessageDialog(workerProfile, "User profiles updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            // refresh the table when success
             reloadWorkerProfiles(workerProfile);
 
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error saving user details: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(workerProfile, "Error saving user details: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
     public void reloadWorkerProfiles(JTable workerProfile) {
-        // Clear the table
+        // clear the table
         DefaultTableModel model = (DefaultTableModel) workerProfile.getModel();
         model.setRowCount(0);
 
-        // Reload data
         displayWorkerProfiles(workerProfile);
     }
 }

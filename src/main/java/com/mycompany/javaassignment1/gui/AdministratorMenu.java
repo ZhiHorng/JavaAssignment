@@ -30,7 +30,7 @@ public class AdministratorMenu extends javax.swing.JFrame {
     }
     
     private void populateApprovedSalesTable() {
-        // Read sales data from the "sales.txt" file
+
         DefaultTableModel model = (DefaultTableModel) approveSaleSummary.getModel();
         model.setRowCount(0); // Clear existing data
 
@@ -57,7 +57,7 @@ public class AdministratorMenu extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) workSummary.getModel();
         model.setRowCount(0); // Clear existing data
 
-        // Set column headers
+        // set column headers
         model.setColumnIdentifiers(new String[]{"SaleID", "ProductID", "ProductName", "Category", "Type", "Price", "Quantity", "State", "Date"});
 
         try (BufferedReader reader = new BufferedReader(new FileReader("work_done.txt"))) {

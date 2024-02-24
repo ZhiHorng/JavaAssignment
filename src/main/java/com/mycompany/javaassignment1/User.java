@@ -76,8 +76,7 @@ public abstract class User {
     }
     
     public String viewProfile() {
-        // Implement profile management for Administrator
-        // Search for user details based on username
+        // search for user details based on username
         Session session = Session.getInstance();
         String usernameToSearch = session.getUsername();
         StringBuilder userProfile = new StringBuilder();
@@ -86,7 +85,7 @@ public abstract class User {
 
         if (userDetails.containsKey(usernameToSearch)) {
             User user = userDetails.get(usernameToSearch);
-            // Build the user profile string
+            // construct the user profile string
             userProfile.append("UserID: ").append(user.getUserID()).append("\n");
             userProfile.append("Username: ").append(user.getUsername()).append("\n");
             userProfile.append("Role: ").append(user.getRole()).append("\n");
@@ -98,12 +97,11 @@ public abstract class User {
             userProfile.append("User not found.");
         }
 
-        // Access userProfile StringBuilder from other classes as needed
         String userProfileString = userProfile.toString();
         return userProfileString; 
     }
 
-    // Method to get user details (assuming stored in a file)
+    // method to get user details 
     private Map<String, User> getUserDetails() {
         Map<String, User> userDetails = null;
         try {
@@ -115,7 +113,7 @@ public abstract class User {
         return userDetails;
     }
     
-    // Method to read user details from a text file
+    //read user detail from file method
     public static Map<String, User> readUserDetailsFromFile(String filePath) throws IOException {
         Map<String, User> userDetails = new HashMap<>();
 
@@ -125,20 +123,19 @@ public abstract class User {
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
                 if (lineNumber == 1) {
-                    // Skip the first row (header row)
+                    // skip the first row 
                     continue;
                 }
                 String[] parts = line.split(",");
                 String userID = parts[0].trim();
                 String username = parts[1].trim();
-                String password = parts[2].trim(); // Read the password
+                String password = parts[2].trim(); 
                 String role = parts[3].trim();
                 String status = parts[4].trim();
                 int age = Integer.parseInt(parts[5].trim());
                 String email = parts[6].trim();
                 String phoneNumber = parts[7].trim();
 
-                // Create user object based on role
                 User user;
                 switch (role) {
                     case "Administrator":
@@ -151,11 +148,10 @@ public abstract class User {
                         user = new Salesperson(userID, username, password, role, status, age, email, phoneNumber);
                         break;
                     default:
-                        // Handle unknown role
+                        // handle unknown role
                         throw new IllegalArgumentException("Unknown role: " + role);
                 }
 
-                // Add user to userDetails map
                 userDetails.put(username, user);
             }
         }

@@ -1,5 +1,5 @@
 ProductID,ProductName,Category,Type,Price,Description,StockQuantity
-1,EKTORP,Sofa,Living Room Furniture,500,Comfortable sofa with reclining features,9
+1,EKTORP,Sofa,Living Room Furniture,500,Comfortable sofa with reclining features,7
 2,LISABO,Dining Table,Dining Room Furniture,300,Sturdy wooden dining table with seating for six,1
 3,HOLMSUND,Bed,Bedroom Furniture,700,Queen-sized bed frame with upholstered headboard,2
 4,BILLY,Bookshelf,Home Office Furniture,150,Tall bookshelf with adjustable shelves,16
@@ -27,5 +27,5 @@ ProductID,ProductName,Category,Type,Price,Description,StockQuantity
 26,BRIMNES,TV Stand,Living Room Furniture,150,TV bench with drawers and door,15
 27,FÄRLÖV,Sofa,Living Room Furniture,750,Traditional sofa with removable covers,10
 28,MARKUS,Desk Chair,Home Office Furniture,120,High-back swivel chair with lumbar support,18
-29,FJÄLLBERGET,Desk Chair,Home Office Furniture,150,Swivel chair with adjustable height and tilt,15
+29,FJÄLLBERGET,Desk Chair,Home Office Furniture,150,Swivel chair with adjustable height and tilt,14
 30,BRUSALI,Wardrobe,Bedroom Furniture,250,Wardrobe with 3 doors,8

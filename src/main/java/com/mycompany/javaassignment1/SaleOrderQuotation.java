@@ -91,6 +91,5 @@ public class SaleOrderQuotation {
 
     // Method to remove the quotation
     public void removeQuotation() {
-        // Implementation to remove the quotation
     }
 }

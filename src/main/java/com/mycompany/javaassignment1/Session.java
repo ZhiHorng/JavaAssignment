@@ -22,7 +22,7 @@ public class Session {
     // Private constructor to prevent instantiation from outside
     public Session() {}
 
-    // Get the singleton instance of Session
+    // instance of Session
     public static Session getInstance() {
         if (instance == null) {
             instance = new Session();
@@ -30,7 +30,7 @@ public class Session {
         return instance;
     }
 
-    // Getter and setter methods for username
+
     public String getUsername() {
         return username;
     }
@@ -39,7 +39,7 @@ public class Session {
         this.username = username;
     }
 
-    // Getter and setter methods for role
+
     public String getRole() {
         return role;
     }
@@ -48,7 +48,7 @@ public class Session {
         this.role = role;
     }
     
-    // Getter and setter methods for userID
+
     public String getUserID() {
         return userID;
     }
@@ -57,7 +57,7 @@ public class Session {
         this.userID = userID;
     }
 
-    // Getter and setter methods for password
+
     public String getPassword() {
         return password;
     }
@@ -66,7 +66,7 @@ public class Session {
         this.password = password;
     }
 
-    // Getter and setter methods for status
+
     public String getStatus() {
         return status;
     }
@@ -75,7 +75,7 @@ public class Session {
         this.status = status;
     }
     
-    // Getter and setter methods for age
+
     public int getAge() {
         return age;
     }
@@ -84,7 +84,6 @@ public class Session {
         this.age = age;
     }
 
-    // Getter and setter methods for email
     public String getEmail() {
         return email;
     }
@@ -93,7 +92,6 @@ public class Session {
         this.email = email;
     }
 
-    // Getter and setter methods for phoneNumber
     public String getPhoneNumber() {
         return phoneNumber;
     }

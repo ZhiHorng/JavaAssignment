@@ -20,7 +20,6 @@
             <Menu class="javax.swing.JMenu" name="workMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Work Done Report"/>
-                <Property name="actionCommand" type="java.lang.String" value="Work Done Report"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="workMenuMouseClicked"/>

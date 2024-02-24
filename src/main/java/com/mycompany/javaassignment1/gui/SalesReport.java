@@ -194,30 +194,30 @@ public class SalesReport extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        // Get the search criteria from the text fields
+        // Get the search field from the text fields
         String saleID = saleIDinput.getText();
         String productType = productTypeInput.getText();
         String productName = productNameInput.getText();
         String workStatus = (String) jComboBox1.getSelectedItem(); 
 
-        // Get the selected date from the calendar
+        // get the selected date from the calendar
         Calendar selectedCalendar = jCalendar1.getCalendar();
         Date selectedDate = null;
         if (selectedCalendar != null) {
             selectedDate = selectedCalendar.getTime();
         }
 
-        // Format the date as needed (e.g., to match the format in the files)
+        // Format the date 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = null;
         if (selectedDate != null) {
             formattedDate = dateFormat.format(selectedDate);
         }
 
-        // Create a list to store the search criteria
+        // list to store the search criteria
         List<String> searchCriteriaList = new ArrayList<>();
 
-        // Add each non-empty search criteria to the list
+        // add non empty criteria to the list
         if (!saleID.isEmpty()) {
             searchCriteriaList.add(saleID);
         }
@@ -234,27 +234,26 @@ public class SalesReport extends javax.swing.JFrame {
             searchCriteriaList.add(formattedDate);
         }
 
-        // Check if any criteria is provided
+        // if any criteria is provided
         if (searchCriteriaList.isEmpty()) {
             // Handle if no criteria is provided
             JOptionPane.showMessageDialog(this, "Please provide a search criteria.", "No Criteria Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Convert the list of criteria to an array
+        // convert the list of criteria to an array
         String[] searchCriteriaArray = searchCriteriaList.toArray(new String[0]);
 
-        // Pass the search criteria and report type to the generateReportContent method
+        // pass the search criteria and report type to the generateReportContent method
         Report report = new Report();
         Object[][] data = report.generateReportContent(searchCriteriaArray, "Sales Report");
 
         // Define column names for the table
         String[] columnNames = {"SaleID", "ProductID", "ProductName", "Category","Type", "Total", "Quantity", "State", "Date"};
 
-        // Create a DefaultTableModel with the data and column names
+        // create a table  with the data and column names
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
 
-        // Set the model to the table
         reportTable.setModel(model);
     }//GEN-LAST:event_searchButtonActionPerformed
 

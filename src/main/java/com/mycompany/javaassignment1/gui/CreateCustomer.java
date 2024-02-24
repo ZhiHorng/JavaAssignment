@@ -137,19 +137,18 @@ public class CreateCustomer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitButtonMouseClicked
-        // Get the values from the text fields
         String name = customerNameField.getText();
         String phoneNumber = phoneNumberField.getText();
         String email = emailField.getText();
 
-        // Get the selected date from the JCalendar
+        // get selected date from jcalendar
         Calendar selectedCalendar = jCalendar1.getCalendar();
         Date selectedDate = null;
         if (selectedCalendar != null) {
             selectedDate = selectedCalendar.getTime();
         }
 
-        // Calculate the age based on the selected date
+        // calculate the age based on the selected date
         int age = calculateAge(selectedDate);
 
         // Generate a unique customer ID
@@ -158,14 +157,14 @@ public class CreateCustomer extends javax.swing.JFrame {
         // Write the details to the text file
         try (FileWriter writer = new FileWriter("customer.txt", true);
              PrintWriter printWriter = new PrintWriter(writer)) {
-            // Format the date
+            // format the date
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = (selectedDate != null) ? dateFormat.format(selectedDate) : "";
 
             // Write the details to the file
             printWriter.println(id + "," + name + "," + age + "," + formattedDate + "," + phoneNumber + "," + email);
 
-            // Display success message
+
             JOptionPane.showMessageDialog(this, "Customer details added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
             // Clear the text fields
@@ -173,26 +172,25 @@ public class CreateCustomer extends javax.swing.JFrame {
             phoneNumberField.setText("");
             emailField.setText("");
         } catch (IOException e) {
-            // Handle file writing errors
             e.printStackTrace();
         }
     }//GEN-LAST:event_submitButtonMouseClicked
 
     private int calculateAge(Date birthday) {
         if (birthday == null) {
-            return 0; // Return 0 if birthday is not provided
+            return 0; // return 0 if birthday is not provided
         }
         Calendar dob = Calendar.getInstance();
         dob.setTime(birthday);
         Calendar today = Calendar.getInstance();
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
         if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
-            age--; // Subtract 1 if the current date is before the birthday this year
+            age--; // subtract 1 if the current date is before the birthday this year
         }
         return age;
     }
 
-    // Helper method to generate a unique customer ID
+    // generate unique customer ID
     private int generateCustomerId() {
         return (int) (Math.random() * 1000);
     }

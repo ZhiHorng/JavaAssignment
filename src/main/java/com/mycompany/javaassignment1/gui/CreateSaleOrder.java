@@ -40,10 +40,10 @@ public class CreateSaleOrder extends javax.swing.JFrame {
             while ((line = reader.readLine()) != null) {
                 // Split the line by commas
                 String[] parts = line.split(",");
-                // Add the customer name to the model
+                // add customer name to the model
                 model.addElement(parts[1]); 
             }
-            // Set the model to the combobox
+            // set combox box model
             customerField.setModel(model);
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,15 +55,14 @@ public class CreateSaleOrder extends javax.swing.JFrame {
         try (BufferedReader reader = new BufferedReader(new FileReader("product.txt"))) {
             DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
             String line;
-            // Skip the header line
+            // skip header row
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                // Split the line by commas
                 String[] parts = line.split(",");
-                // Add the product name to the model
-                model.addElement(parts[1]); // Assuming the product name is at index 1
+                // add the product name to the model
+                model.addElement(parts[1]); 
             }
-            // Set the model to the combobox
+            // set combo box model
             productSelection.setModel(model);
         } catch (IOException e) {
             e.printStackTrace();
@@ -203,14 +202,14 @@ public class CreateSaleOrder extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateProductStock(String productName, int stockQuantity) throws IOException {
-        // Read all product data, update stock quantity, and write back to file
+        // ead all product data, update stock quantity and write back to file
         BufferedReader reader = new BufferedReader(new FileReader("product.txt"));
         String line;
         StringBuilder updatedFileContent = new StringBuilder();
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split(",");
             if (parts[1].equals(productName)) {
-                parts[6] = String.valueOf(stockQuantity); // Update stock quantity
+                parts[6] = String.valueOf(stockQuantity); 
             }
             updatedFileContent.append(String.join(",", parts)).append("\n");
         }
@@ -223,13 +222,13 @@ public class CreateSaleOrder extends javax.swing.JFrame {
 
     private int getNextSaleID() throws IOException {
         int maxID = 0;
-        boolean firstRow = true; // Flag to skip the first row
+        boolean firstRow = true; // argument to skip the first row
         try (BufferedReader reader = new BufferedReader(new FileReader("sales.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (firstRow) {
                     firstRow = false;
-                    continue; // Skip the first row
+                    continue; //skip first row
                 }
                 String[] parts = line.split(",");
                 int saleID = Integer.parseInt(parts[0]);
@@ -252,7 +251,7 @@ public class CreateSaleOrder extends javax.swing.JFrame {
             String productName = (String) productSelection.getSelectedItem();
             int quantity = Integer.parseInt(quantityField.getText());
             
-            // Validate quantity
+            //validate quantity is not negative 
             if (quantity <= 0) {
                 JOptionPane.showMessageDialog(null, "Quantity must be a positive integer", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -265,11 +264,11 @@ public class CreateSaleOrder extends javax.swing.JFrame {
                 return;
             }
             
-            // Reduce stock quantity
+            //minus stock 
             stockQuantity -= quantity;
             updateProductStock(productName, stockQuantity);
             
-            // Add product details to the list
+            // add product to the list
             productList.add(new String[]{productData[0], productName, productData[2], productData[3], productData[4], productData[5], String.valueOf(quantity)});
             
             JOptionPane.showMessageDialog(null, "Product added to the list", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -281,7 +280,7 @@ public class CreateSaleOrder extends javax.swing.JFrame {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         try {
-            // Check if any products have been added
+            // check if product is added before submit is added
             if (productList.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please add at least one product before submitting the sale order", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -290,14 +289,14 @@ public class CreateSaleOrder extends javax.swing.JFrame {
             String productName = (String) productSelection.getSelectedItem();
             int quantity = Integer.parseInt(quantityField.getText());
             String salesPersonName = Session.getInstance().getUsername();
-            // Get the selected date from the calendar
+            // get selected date from calendar
             Calendar selectedCalendar = jCalendar1.getCalendar();
             Date selectedDate = null;
             if (selectedCalendar != null) {
                 selectedDate = selectedCalendar.getTime();
             }
 
-            // Format the date as needed (e.g., to match the format in the files)
+            // Format the date
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = null;
             if (selectedDate != null) {
@@ -318,7 +317,7 @@ public class CreateSaleOrder extends javax.swing.JFrame {
             }
             
             JOptionPane.showMessageDialog(null, "Sale quotations created successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            productList.clear(); // Clear the product list after submission
+            productList.clear(); // Clear the product list after submission to accept new sale submission
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "An error occurred while creating the sale quotations", "Error", JOptionPane.ERROR_MESSAGE);

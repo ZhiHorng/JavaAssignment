@@ -33,18 +33,17 @@ private User user;
     private void displayUserProfile() {
         // Check if user object is not null
         if (user != null) {
-            // Call the manageProfile method to retrieve the user profile information
+            // view profile method is instantiate here to view profile
             String userProfile = user.viewProfile();
-            // Display the user profile in the text area
+            // display the user profile in the text area
             userField.setText(userProfile);
         } else {
             userField.setText("User profile not available");
         }
     }    
     
-    // Method to override and allow editing of specific fields
+    // Method allow editing of specific fields
     private void editUserDetails(String userId, String age, String phoneNumber, String email) {
-        // Read the user_details.txt file
         try (BufferedReader reader = new BufferedReader(new FileReader("user_details.txt"))) {
             String line;
             StringBuilder updatedContent = new StringBuilder();
@@ -63,10 +62,10 @@ private User user;
                     if (!email.isEmpty()) {
                         fields[6] = email;
                     }
-                    // Reconstruct the line with updated fields
+                    // line with updated fields is reconstructed
                     line = String.join(", ", fields);
                 }
-                // Append the line (either updated or original) to the content
+                // Append the line  to the content
                 updatedContent.append(line).append("\n");
             }
             // Write the updated content back to the file
@@ -234,31 +233,29 @@ private User user;
         // Check if both password fields are empty
         if (newPassword.isEmpty() || confirmNewPassword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter both new password and confirm password.");
-            return; // Exit the method
+            return; 
         }
 
         // Check if passwords match
         if (!newPassword.equals(confirmNewPassword)) {
             JOptionPane.showMessageDialog(this, "Passwords do not match. Please try again.");
-            return; // Exit the method
+            return; 
         }
 
         // Instantiate UserDetailsUpdater and call updatePassword method
         ManageProfile.updatePassword(user.getUserID(), newPassword);
 
-        // Display success message
         JOptionPane.showMessageDialog(this, "Password updated successfully.");
         
-    // Dispose the current window
     this.dispose();
     
-    // Create a new SelfProfile window with the updated user object
+    // Create a new SelfProfile window with the updated user details
     SelfProfile newProfileWindow = new SelfProfile(user);
     newProfileWindow.setVisible(true);
     }//GEN-LAST:event_resetPasswordActionPerformed
 
     private void resetUserDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetUserDetailsActionPerformed
-        // Retrieve current user ID from session
+        //Retrieve current user id
         String userId = Session.getInstance().getUserID();
         
         // Get the values from the input fields
@@ -269,13 +266,12 @@ private User user;
         // Check if all fields are empty
         if (age.isEmpty() && phoneNumber.isEmpty() && email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter at least one field to update.");
-            return; // Exit the method
+            return; 
         }
         
-        // Call editUserDetails method to update user details
+        // editUserDetails method to update user details
         editUserDetails(userId, age, phoneNumber, email);
         
-        // Display success message
         JOptionPane.showMessageDialog(this, "User details updated successfully.");
         
         // Refresh the user profile display

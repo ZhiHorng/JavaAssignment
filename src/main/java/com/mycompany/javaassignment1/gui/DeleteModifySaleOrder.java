@@ -39,13 +39,13 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
 
         private final boolean[] editableColumns; // Array to store editable status of each column
 
-        // Constructor to initialize the model with column names and data
+        // cpnstructor to initialize the model with column names and data
         public CustomTableModel(Object[][] data, Object[] columnNames, boolean[] editableColumns) {
             super(data, columnNames);
             this.editableColumns = editableColumns;
         }
 
-        // Override isCellEditable to specify which cells are editable
+        // pverroide isCellEditable method to specify which cells are editable
         @Override
         public boolean isCellEditable(int row, int column) {
             return editableColumns[column]; // Return true if the cell is editable, false otherwise
@@ -54,13 +54,13 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
     private void setSaleInfoTable(){
         Session session = Session.getInstance();
         String salesPersonName = session.getUsername();
-        // Read sales data from the "sales.txt" file
+        // Read sales data from the sales text file
 
-        // Define column names and editable status for each column
+        // define column names and which column can be edited
         Object[] columnNames = {"SaleID", "ProductID", "ProductName", "Category", "Type","Price", "Quantity", "State", "Date","SalesPersonName", "CustomerName"};
         boolean[] editableColumns = {false, false, true, false, false, false, true, false, true, false, true}; // Specify which columns are editable
 
-        // Use custom table model with editable status for each column
+        // Use custom table model and set editable status for each column
         CustomTableModel model = new CustomTableModel(new Object[][]{}, columnNames, editableColumns);
         saleInfoTable.setModel(model);
 
@@ -82,39 +82,39 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
     private boolean removeSaleFromTxtFile(String saleID) {
         String fileName = "sales.txt";
         try {
-            // Read all lines from the file into a list
+            // read all lines from the file into a list
             List<String> lines = Files.readAllLines(Paths.get(fileName));
 
-            // Remove the line with the matching sale ID
+            // remove the line with the matching sale ID
             lines.removeIf(line -> line.startsWith(saleID + ","));
 
-            // Write the updated list back to the file
+            // write the updated list back to the file
             Files.write(Paths.get(fileName), lines);
 
-            return true; // Deletion successful
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
-            return false; // Error occurred
+            return false; 
         }
     }   
 
     private void updateStockQuantity(String productID, int quantity) {
         String fileName = "product.txt";
         try {
-            // Read all lines from the file into a list
+            // read all lines from the file into a list
             List<String> lines = Files.readAllLines(Paths.get(fileName));
 
-            // Find the line that corresponds to the product sold
+            // fine matching line
             for (int i = 0; i < lines.size(); i++) {
                 String line = lines.get(i);
                 String[] fields = line.split(",");
                 if (fields.length > 0 && fields[0].trim().equals(productID)) {
-                    // Update the stock quantity for the product
+                    // update stock quantity
                     int currentStock = Integer.parseInt(fields[6].trim());
                     int updatedStock = currentStock + quantity;
                     fields[6] = String.valueOf(updatedStock);
                     lines.set(i, String.join(",", fields));
-                    break; // Stop searching once the product is found and updated
+                    break; 
                 }
             }
 
@@ -123,7 +123,6 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the IOException appropriately (e.g., show error message)
         }
     }
 
@@ -134,7 +133,7 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");
-                model.addElement(fields[1]); // Assuming customer name is at index 1
+                model.addElement(fields[1]); 
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -247,23 +246,23 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
-        // Get the index of the selected row
+        // get the index of the selected row
         int selectedRow = saleInfoTable.getSelectedRow();
-        if (selectedRow == -1) {
+        if (selectedRow == -1) {//if no row is selected
             JOptionPane.showMessageDialog(this, "Please select a row to delete.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Get the sale ID and quantity of the selected row
+        // get the sale ID and quantity of the selected row
         String saleID = saleInfoTable.getValueAt(selectedRow, 0).toString();
         String productID = saleInfoTable.getValueAt(selectedRow, 1).toString();
         int quantity = Integer.parseInt(saleInfoTable.getValueAt(selectedRow, 6).toString());
 
-        // Remove the row from the table
+        // remove the row from the table
         DefaultTableModel model = (DefaultTableModel) saleInfoTable.getModel();
         model.removeRow(selectedRow);
 
-        // Remove the corresponding data from the "sales.txt" file
+        // remove the corresponding data from the "sales.txt" file
         if (removeSaleFromTxtFile(saleID)) {
             // Update stock quantity in product.txt
             updateStockQuantity(productID, quantity);
@@ -295,17 +294,17 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
             // Prompt the user for the new quantity
             String newQuantityStr = JOptionPane.showInputDialog(this, "Enter new quantity:", "Modify Quantity", JOptionPane.QUESTION_MESSAGE);
             if (newQuantityStr == null) {
-                // User canceled the operation
+                // user closed the window or no quantity is set
                 return;
             }
 
             try {
                 int newQuantity = Integer.parseInt(newQuantityStr);
 
-                // Calculate the quantity difference
+                // calculate the quantity difference
                 int quantityDifference = newQuantity - previousQuantity;
 
-                // Update data files
+                // update data files
                 try {
                     // Read all lines from the sales.txt file into a list
                     List<String> lines = Files.readAllLines(Paths.get("sales.txt"));
@@ -318,7 +317,7 @@ public class DeleteModifySaleOrder extends javax.swing.JFrame {
                             // Update the line with the modified data
                             String updatedLine = String.join(",", saleID, productID, productName, category, type, String.valueOf(unitPrice), String.valueOf(newQuantity), state, date, salesPersonName, customerName);
                             lines.set(i, updatedLine);
-                            break; // Stop searching once the sale ID is found and updated
+                            break; 
                         }
                     }
 

@@ -76,12 +76,10 @@ public class Product {
         this.quantity = quantity;
     }
     
-    // Method to set the stock quantity
     public void setStockQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    // Override toString method for printing product details
     @Override
     public String toString() {
         return "Product{" +

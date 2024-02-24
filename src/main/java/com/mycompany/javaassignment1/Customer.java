@@ -77,7 +77,6 @@ public class Customer {
         this.email = email;
     }
 
-    // toString method to display customer information
     @Override
     public String toString() {
         return "Customer{" +

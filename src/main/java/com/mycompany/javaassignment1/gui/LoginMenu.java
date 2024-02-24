@@ -127,11 +127,11 @@ public class LoginMenu extends javax.swing.JFrame {
         return;
     }    
 
-    // Check login credentials
+    // Check login password and name match
     if (user.login(username, password)) {
         JOptionPane.showMessageDialog(this, "Login successful.", "Success", JOptionPane.INFORMATION_MESSAGE);
         
-        // Close login menu window
+        // close login menu and set session
         this.dispose();
         Session session = Session.getInstance();
         session.setUsername(username);
@@ -140,14 +140,14 @@ public class LoginMenu extends javax.swing.JFrame {
         session.setPassword(password);
         session.setStatus(user.getStatus());
 
-        // Open main menu window based on user's role
+        // open main menu base on user role
         openMainMenu(user.getRole(), username);
     } else {
         JOptionPane.showMessageDialog(this, "Invalid password.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
 
-// Method to open main menu window based on user's role
+// method to open main menu window based on user role
     private void openMainMenu(String role, String username) {
         switch (role) {
             case "Administrator":
