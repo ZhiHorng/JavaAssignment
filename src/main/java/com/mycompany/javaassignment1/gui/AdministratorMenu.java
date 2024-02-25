@@ -92,12 +92,16 @@ public class AdministratorMenu extends javax.swing.JFrame {
         approveSaleSummary = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         workSummary = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        button1 = new java.awt.Button();
         jMenuBar1 = new javax.swing.JMenuBar();
         reportMenu = new javax.swing.JMenu();
         salesMenu = new javax.swing.JMenu();
         workMenu = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         workerProfile = new javax.swing.JMenu();
+        Exit = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -141,6 +145,12 @@ public class AdministratorMenu extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(workSummary);
 
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
+        button1.setLabel("button1");
+
         reportMenu.setText("Report");
 
         salesMenu.setText("Sales Report");
@@ -152,7 +162,6 @@ public class AdministratorMenu extends javax.swing.JFrame {
         reportMenu.add(salesMenu);
 
         workMenu.setText("Work Done Report");
-        workMenu.setActionCommand("Work Done Report");
         workMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 workMenuMouseClicked(evt);
@@ -177,6 +186,14 @@ public class AdministratorMenu extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(workerProfile);
+
+        Exit.setText("Exit");
+        Exit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ExitMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(Exit);
 
         setJMenuBar(jMenuBar1);
 
@@ -264,6 +281,12 @@ public class AdministratorMenu extends javax.swing.JFrame {
         salesreport.setVisible(true);
     }//GEN-LAST:event_salesMenuMouseClicked
 
+    private void ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitMouseClicked
+        LoginMenu a = new LoginMenu();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ExitMouseClicked
+
     
     /**
      * @param args the command line arguments
@@ -302,7 +325,11 @@ public class AdministratorMenu extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Exit;
     private javax.swing.JTable approveSaleSummary;
+    private java.awt.Button button1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

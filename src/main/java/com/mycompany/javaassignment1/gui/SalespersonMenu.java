@@ -89,6 +89,7 @@ public class SalespersonMenu extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         addCustomer = new javax.swing.JMenu();
         personalinformationMenu = new javax.swing.JMenu();
+        Exit = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -181,6 +182,14 @@ public class SalespersonMenu extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(personalinformationMenu);
+
+        Exit.setText("Exit");
+        Exit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ExitMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(Exit);
 
         setJMenuBar(jMenuBar1);
 
@@ -354,6 +363,12 @@ public class SalespersonMenu extends javax.swing.JFrame {
         setSaleInfoTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitMouseClicked
+        LoginMenu a = new LoginMenu();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ExitMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -390,6 +405,7 @@ public class SalespersonMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Exit;
     private javax.swing.JMenu addCustomer;
     private javax.swing.JMenu createSaleOrder;
     private javax.swing.JTextField customerField;

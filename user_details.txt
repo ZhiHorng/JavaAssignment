@@ -3,5 +3,5 @@ ID, Name, Password, Role, Status, Age, Email, Phone Number
 2, Jane Smith, Adminpass123, Administrator, Active, 31, adminJane@example.com, 0176445219
 3, Mike Johnson, salespass789, Salesperson, Active, 25, salesperson1@example.com, 555555555
 4, David Brown, adminpass321, Administrator, Active, 40, admin2@example.com, 111111111
-5, Sarah Lee, officerpass654, Officer, Inactive, 32, officer2@example.com, 222222222
+5, Sarah Lee, officerpass654, Officer, Active, 32, officer2@example.com, 222222222
 6, Emily Chen, Salespass555, Salesperson, Active, 55, salesperson2@example.com, 0176555656
